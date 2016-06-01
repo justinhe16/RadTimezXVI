@@ -1,0 +1,35 @@
+{
+  "name": "radtimesxvi",
+  "version": "1.0.0",
+  "description": "For the one and only epic NYC scavenger hunt.",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinhe16/RadTimezXVI.git"
+  },
+  "author": "Justin He",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinhe16/RadTimezXVI/issues"
+  },
+  "homepage": "https://github.com/justinhe16/RadTimezXVI#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "fs": "0.0.2",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.19",
+    "morgan": "^1.7.0",
+    "nodemailer": "^2.3.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
+}
