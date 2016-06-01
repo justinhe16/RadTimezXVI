@@ -33,12 +33,10 @@ app.use('/bower_components', express.static("bower_components")); // sets standa
     app.use(passport.initialize());
     app.use(passport.session()); // persistent login sessions
     app.use(flash()); // use connect-flash for flash messages storedn session
-    
+
 // routes ======================================================================
     app.get('/', function(req, res){
-        if (req.session.username){
-            res.render('index.ejs', {welcome: req.session.username});  
-        }
+        res.send("test");
     });
 
 

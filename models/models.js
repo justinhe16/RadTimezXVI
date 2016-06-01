@@ -3,8 +3,7 @@ var bcrypt   = require('bcrypt-nodejs');
 
 var adminSchema = mongoose.Schema({
       username : String,
-      password : String,
-      
+      password : String
 });
 
 var teamSchema = mongoose.Schema({
@@ -31,13 +30,21 @@ var photoSchema = mongoose.Schema({
 teamSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
-
 // checking if password is valid
 teamSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return bcrypt.compareSync(password, this.password);
+};
+// generating a hash
+adminSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+// checking if password is valid
+adminSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 };
 
 // create the model for users and expose it to our app
+module.exports.Admin = mongoose.model('Admin', adminSchema);
 module.exports.Team = mongoose.model('Team', teamSchema);
 module.exports.Clue = mongoose.model('Clue', clueSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
