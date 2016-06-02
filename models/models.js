@@ -9,12 +9,15 @@ var adminSchema = mongoose.Schema({
 var teamSchema = mongoose.Schema({
       username : String,
       password : String,
+      totalPoints : String, 
       members : [String]
 });
 
 var clueSchema = mongoose.Schema({
       text : String,
       pointValue : Number,
+      type : String, 
+      submittable : Boolean,
       successfulTeamsIds : [Number], //ids of the teams that have gained points for this clue
       relatedPhotoIds : [Number]
 });

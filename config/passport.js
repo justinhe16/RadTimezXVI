@@ -50,7 +50,10 @@ module.exports = function(passport) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
-
+            // check to see if the person signing up has the admin key
+            if (req.body.adminKey !== configAdminKey.key) {
+                return done(null, false, req.flash('signupMessage', 'Wrong admin key.'));
+            }
             // check to see if theres already a user with that email
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That username is already taken.'));

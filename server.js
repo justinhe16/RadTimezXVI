@@ -14,7 +14,7 @@ var configDB = require('./config/database');
 //HEADERS
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+//mongoose.connect(configDB.url); // connect to our database
 require('./config/passport')(passport); // pass passport for configuration
 app.use(express.static("static")); // sets standard files things. i.e /public/imgs will be /imgs
 app.use('/bower_components', express.static("bower_components")); // sets standard files things. i.e /public/imgs will be /imgs
@@ -36,10 +36,12 @@ app.use('/bower_components', express.static("bower_components")); // sets standa
 
 // routes ======================================================================
     app.get('/', function(req, res){
-        res.send("test");
+        res.render('index.ejs');
     });
 
-
+    app.get('/clues', function(req, res){ // should pull the list of clues for this team
+        res.send("clues");
+    });
 // launch ======================================================================
 app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
