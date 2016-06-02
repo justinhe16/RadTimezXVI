@@ -17,6 +17,7 @@ module.exports = function(passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     passport.serializeUser(function(user, done) {
+        console.log("Ser");
         done(null, user.id);
     });
 
@@ -46,7 +47,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'username' :  username }, function(err, user) {
+        models.Admin.findOne({ 'username' :  username }, function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
@@ -90,14 +91,14 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'username' :  username }, function(err, user) {
+        models.Team.findOne({ 'username' :  username }, function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
 
             // check to see if theres already a user with that email
             if (user) {
-                return done(null, false, req.flash('signupMessage', 'That teamName is already taken.'));
+                return done(null, false, req.flash('signupMessage', 'That Team Name is already taken.'));
             } else {
 
                 // if there is no user with that email
@@ -107,7 +108,12 @@ module.exports = function(passport) {
                 // set the user's local credentials
                 newUser.username = username;
                 newUser.password = newUser.generateHash(password);
-                newUser.members = members;
+                newUser.member1 = req.body.member1;
+                newUser.member2 = req.body.member2;
+                newUser.member3 = req.body.member3;
+                newUser.member4 = req.body.member4;
+                newUser.member5 = req.body.member5;
+                newUser.member6 = req.body.member6;
 
                 // save the user
                 newUser.save(function(err) {
@@ -132,7 +138,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'username' :  username }, function(err, user) {
+        models.Admin.findOne({ 'username' :  username }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err)
                 return done(err);
@@ -162,7 +168,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'username' :  username }, function(err, user) {
+        models.Team.findOne({ 'username' :  username }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err)
                 return done(err);

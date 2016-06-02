@@ -10,6 +10,21 @@
         <h2>Check here periodically for updates on clues.</h2>
       </div>
     </div>
+    <div class="row">
+    <div class="jumbotron">
+        <h3>Rad Notifications</h3>
+        <!-- For loop, going through notifs via date -->
+        <% if (typeof notifications == 'undefined') { %> 
+          <p> No notifications yet! </p>
+        <% } else { for (var i = 0; i < notifications.length; i++) { %>
+        <div class="jumbotron">
+        <h2><%= notifications[i].title %></h2>
+        <h3><%= notifications[i].date %></h3>
+        <p><%= notifications[i].text %></p>
+        </div>
+        <% } } %>
+    </div>
+    </div>
   </div>
 </body>
 <% include footer.ejs %>

@@ -10,7 +10,12 @@ var teamSchema = mongoose.Schema({
       username : String,
       password : String,
       totalPoints : String, 
-      members : [String]
+      member1 : String,
+      member2 : String,
+      member3 : String,
+      member4 : String,
+      member5 : String,
+      member6 : String
 });
 
 var clueSchema = mongoose.Schema({
@@ -26,6 +31,12 @@ var photoSchema = mongoose.Schema({
       path : [String],
       teamId : Number, //the team that sent the photo in
       caption : String //the team may attach a caption
+});
+
+var notificationSchema = mongoose.Schema({
+      title: String,
+      date: String,
+      text: String
 });
 
 // methods ======================
@@ -51,3 +62,4 @@ module.exports.Admin = mongoose.model('Admin', adminSchema);
 module.exports.Team = mongoose.model('Team', teamSchema);
 module.exports.Clue = mongoose.model('Clue', clueSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
+module.exports.Notification = mongoose.model('Notification', notificationSchema);

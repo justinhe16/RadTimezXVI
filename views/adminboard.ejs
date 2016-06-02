@@ -1,0 +1,18 @@
+<% include header.ejs %>
+
+<form id="addNotification" style="padding-bottom: 50px; float: none; margin: 0 auto; width: 60%" action="/addNotification" method="POST">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input name="title" type="text" class="form-control" id="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input name="date" type="text" class="form-control" id="date" placeholder="Date">
+  </div>
+  <div class="form-group">
+    <label for="text">Text</label>
+    <textarea form="addNotification" rows="3" name="text" type="text" class="form-control" id="text"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block btn-lg">Make Post</button>
+</form>
+
