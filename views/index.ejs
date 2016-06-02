@@ -16,11 +16,11 @@
         <!-- For loop, going through notifs via date -->
         <% if (typeof notifications == 'undefined') { %> 
           <p> No notifications yet! </p>
-        <% } else { for (var i = 0; i < notifications.length; i++) { %>
+        <% } else { for (var i = 0; i < notifications.length; i++) { var place = notifications.length-i %>
         <div class="jumbotron">
-        <h2><%= notifications[i].title %></h2>
-        <h3><%= notifications[i].date %></h3>
-        <p><%= notifications[i].text %></p>
+        <h2><%= notifications[place-1].title %></h2>
+        <h3><%= notifications[place-1].date %></h3>
+        <p><%= notifications[place-1].text %></p>
         </div>
         <% } } %>
     </div>
