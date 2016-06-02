@@ -1,0 +1,17 @@
+<% include header.ejs %>
+
+<div class="row">
+<% if (photos.length > 0) { for (var j = 0; j < photos.length; j++) { %>
+<div class="col-sm-3">
+<div class="panel panel-primary">
+            <div class="panel-heading">
+            <img style="max-width: 400px; max-height: 400px" src="./images/<%=photos[j].path%>"> 
+            <p><%= photos[j].teamId %></p>
+            </div>
+            <div class="panel-body">
+              <%= photos[j].caption %>
+      </div>
+</div>
+</div>
+<% } } %>
+</div>

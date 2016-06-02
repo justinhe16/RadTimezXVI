@@ -1,0 +1,14 @@
+<% include header.ejs %>
+
+<form id="submitPhoto" style="padding-bottom: 50px; float: none; margin: 0 auto; width: 60%" action="/submitPhoto" enctype="multipart/form-data" method="POST">
+  <div class="form-group">
+    <label for="photo">Submit a Photo</label>
+    <input type="file" name="photo" id="photo">
+    <p class="help-block">Choose a photo to submit fam.</p>
+  </div>
+  <div class="form-group">
+    <label for="caption">Caption</label>
+    <input name="caption" type="text" class="form-control" id="caption" placeholder="Why are you submitting this photo? Backstory?">
+  </div>
+  <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Photo</button>
+</form>

@@ -29,7 +29,7 @@ var clueSchema = mongoose.Schema({
 
 var photoSchema = mongoose.Schema({
       path : [String],
-      teamId : Number, //the team that sent the photo in
+      teamId : String, //the team that sent the photo in
       caption : String //the team may attach a caption
 });
 

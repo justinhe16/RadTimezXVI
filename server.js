@@ -9,10 +9,22 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var methodOverride = require('method-override');
 var session      = require('express-session');
+var multer = require('multer');
 var models   = require('./models/models');
 var app      = express();
 var configDB = require('./config/database');
-//HEADERS
+
+// picture storage configuration ====
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './static/images')
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.user.username + '-' + file.originalname)
+  }
+})
+ 
+var upload = multer({ storage: storage })
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
@@ -51,25 +63,52 @@ app.get('/', function(req, res){ // index + home page
     });
 });
 
-    // get clues page
-app.get('/clues', function(req, res){ // should pull the list of clues for this team
-    res.send("clues");
+app.get('/gallery', function(req, res){
+    models.Photo.find({}, function(err, photos) {
+    var photoMap = [];
+    var authorMap = [];
+        for (var i = 0; i < photos.length; i++){
+            photoMap[i] = photos[i];
+        }
+    if (req.user){
+    res.render('gallery.ejs', {photos : photoMap, welcome: req.user.username})
+    }
+    else {
+    res.render('gallery.ejs', {photos : photoMap});
+    }
+    });
 });
 
-app.get('/adminBoard', function(req, res){
-    res.render('adminboard.ejs');
+app.get('/submitPhoto', isLoggedIn, function(req, res){ // should pull the list of clues for this team
+    res.render("submitPhoto.ejs", {welcome: req.user.username});
+});
+
+app.get('/adminBoard', isLoggedIn, function(req, res){
+    res.render('adminboard.ejs', {welcome: req.user.username});
 });
 
 app.post('/addNotification', function(req, res){
-    console.log(req.body);
     var newNotification = new models.Notification();
     newNotification.title = req.body.title;
     newNotification.date = req.body.date;
     newNotification.text = req.body.text;
     newNotification.save(function(err){
+        console.log(err);
         console.log(newNotification);
     });
     res.redirect('/');
+});
+
+app.post('/submitPhoto', isLoggedIn, upload.single('photo'), function(req, res){
+    var newPhoto = new models.Photo();
+    newPhoto.path = req.user.username + '-' + req.file.originalname;
+    newPhoto.teamId = req.user.username + ': ' + req.user.member1 + ', ' + req.user.member2 + ', ' + req.user.member3 + ', ' + req.user.member4 + ', ' + req.user.member5 + ', ' + req.user.member6;
+    newPhoto.caption = req.body.caption;
+    newPhoto.save(function(err){
+        console.log(err);
+        console.log(newPhoto);
+    });
+    res.redirect('/gallery');
 });
 
 app.get('/adminLogin', function(req, res){
@@ -117,6 +156,17 @@ app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
+//methods
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
 // launch ======================================================================
 app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
